@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The Simple Client-Side Cadet Attendance App, all built with just HTML, CSS & JQuery!">
+    <meta name="author" content="Thilina Ratnayake">
+    <title>VIT Attendance</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Stylesheets/main.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+
+  <!-- Modal -->
+<div class="modal fade in" id="startmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align:center">Welcome to VIT-Attendance!</h4>
+      </div>
+      <div class="modal-body">
+        <H1 style="text-align:center">Hi!</H1>
+        <hr>
+        
+        <p><h4 style="text-align:center"> Welcome to one of the attendance applications designed to make attendance-taking easier. </h4></p>
+        <p>
+          <ol>
+            <li>To use this app, you need to upload a master list of people (in our case Students) that you will take attendance against. That is done by </li>
+          <li>You can download the template <a href="AttendanceTemplate.csv">HERE!</a></li>
+          <li>Use MS Excel ( or some other spreadsheet app ) to edit the values to fit your situation. (JUST MAKE SURE YOU SAVE IN .CSV FORMAT)</li>
+           <li>This app is a 100% client-side, which means NO data gets stored on my server, and you can run this just by downloading the files and doubleclicking index.html</li>
+        </ol></p>
+
+
+  <hr>
+        <h4 style="text-align:center"> NOTE's</h4>
+        <ul>
+          <li>This app isn't COMPLETE YET.</li>
+          <li>The next release will allow to modify all ready taken attendance, and a fingerprint reader as input.</li><hr>
+          <p style="text-align:center">You are running: <br>
+           <h4 style="text-align:center">V1.0 - 20 April 2015</h4></p>
+      </div>
+      <div class="modal-footer">
+        
+        <button id="btnclosemodal" type="button" class="btn btn-primary">I gotcha!</button>
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">VITAttendance</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+           
+            <li><a href="rAiyuGcEVU/index2.html">Go Back</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+          
+      <div class="starter-template">
+        <h1>VITAttendance <span class="glyphicon glyphicon-ok"></span> </h1>
+        <p class="lead"> A Client side web-application that makes the task of taking attendance easier and allows for ease of attendance-information loading and storing.
+      </div>
+
+    </div><!-- /.container -->
+
+    <!-- <div> <h2> Dev Menu</h2><br>
+    <button id="clearmem"> Clear Memory</button> <br>
+    <button id="createdb"> Create DB</button>
+    <button id="checkdb"> Check DB</button>
+    <button id="displayTable2"> Display Table Pt2</button>
+     <button id="displayTable3"> Display Table Pt3</button> -->
+
+
+    </div>
+          <div id="Step1" class="container">
+            <h1> Step 1, Upload Master Attendance File  <span class="glyphicon glyphicon-cloud-upload"></span></h1>
+            <h3>Upload attendance file!</h3>            
+            <input type="file" id="files" name="files[]" multiple />            
+            <hr/>
+
+          </div>
+
+    <div id="Step2" class="container">       
+       <h1> Step 2, Check your Data ! <span class="glyphicon glyphicon-eye-open
+"></span> </h1>       
+       <table id="tablearea1" style="width:100%; height:400px;" border>       
+       </table>
+      
+        <hr>
+       <button id="dataconfirm" type="button" class="btn btn-primary">Yes! My Data Looks Correct.</button>
+       <button id="dataredo" type="button" class="btn btn-warning">Oh Snap! I made a mistake!</button>
+    </div>
+
+
+
+      <div id="Step3" class="container">
+        <h1> Step 3, Scan (or type) in your Fingerprint-HashCode! <span class="glyphicon glyphicon-barcode"></span></h1>        
+        <form id="barcode" action="">
+        <iframe src="rAiyuGcEVU/SparkMD5-master/test/file_reader.html" height="590px" width="100%" ></iframe>
+
+
+
+
+
+        <input id="barcodeinput" type="text" class="form-control"><hr>
+       <div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Heads Up!</strong> This is where you enter the number of the corresponding cadet below.
+</div>
+      </form>
+        <button id="btnenter" type="button" class="btn btn-primary btn-lg">You can just type and press enter, OR click me!</button>
+        
+      </form>
+
+          <div class="progress">
+              <div id="attendanceprog" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              100
+              </div>
+          </div>
+      <table id="tablearea2" style="width:100%; height:400px;" border>
+      </table>
+      <hr>
+        <button id="attendancecomplete" type="button" class="btn btn-primary btn-lg">I'm done taking attendance!</button>
+      </div>
+
+   <div id="Step4" class="container">
+   <h1> Step 4, Export that sweet attendance data! <span class="glyphicon glyphicon-cloud-download"></span> </h1>
+    <button id="exportData">Export Data</button>
+    <hr>
+    <div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>HOW DO I OPEN THIS?! I don't see a file extension!</strong> Open MS Excel and then open the file.
+</div>
+
+   </table>
+</div>
+
+<div id="footer">
+      <div class="container">
+        <p class="text-muted">Created for Software Lab Prject @ VIT-University, Vellore</p>
+      </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="Scripts/jquery-2.1.0.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.csv.js"></script>
+     <script src="Scripts/table2CSV.js"></script>
+    <script src="Scripts/index.js"></script>
+    
+
+
+  </body>
+
+</html>

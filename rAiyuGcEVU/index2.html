@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>VIT-Attendance</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+    
+    
+	<style>
+#page-wrapper {
+  width: 300px;
+  background: #FFF;
+  padding: 1em;
+  margin: 1em auto;
+  min-height: 300px;
+  border-top: 5px solid #69c773;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+#fileDisplayArea {
+  margin-top: 2em;
+  width: 100%;
+  overflow-x: auto;
+}
+
+  </style>
+<script>
+
+window.onload = function() {
+
+    var fileInput = document.getElementById('file');
+    var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+
+    fileInput.addEventListener('change', function(e) {
+      var file = fileInput.files[0];
+      var imageType = /image.*/;
+
+      if (file.type.match(imageType)) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          fileDisplayArea.innerHTML = "";
+
+          var img = new Image();
+          img.src = reader.result;
+
+          fileDisplayArea.appendChild(img);
+        }
+
+        reader.readAsDataURL(file); 
+      } else {
+        fileDisplayArea.innerHTML = "File not supported!"
+      }
+    });
+
+}
+
+</script>
+
+
+
+  </head>
+	<body>
+<div class="container-full">
+
+      <div class="row">
+       
+        <div class="col-lg-12 text-center v-center">
+          <a name="UP"></a>
+          <h1>VIT-Attendance</h1>
+          <p class="lead">Welcome to VIT Attendance what would you like to do ?</p>
+          
+          <br><br><br>
+          
+          <a href="#add_student"><button type="button" class="btn btn-info">Add Students to Roll Call</button></a>
+          <a href="../index.html"><button type="button" class="btn btn-warning">Mark Attendance</button>
+          <br><br><br>
+            <p class="lead">VIT Attendance a convenient system to take biometric attendance and save it in convenient documents to visualise later.</p>
+        </div>
+      
+      </div> <!-- /row -->
+  
+  	  <div class="row">
+       
+        <div class="col-lg-12 text-center v-center" style="font-size:39pt;">
+          <a href="#"><i class="icon-google-plus"></i></a> <a href="#"><i class="icon-facebook"></i></a>  <a href="#"><i class="icon-twitter"></i></a> <a href="#"><i class="icon-github"></i></a> <a href="#"><i class="icon-pinterest"></i></a>
+        </div>
+      
+      </div>
+  
+  	<br>
+
+</div> <!-- /container full -->
+
+<div class="container">
+  
+  	<hr>
+  <a name="add_student"></a>
+  <div class="container">
+  <h2>Please Enter The Details:</h2>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">First Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="fname" placeholder="Enter the First Name">
+      </div>
+
+    </div>
+
+<div class="form-group">
+      <label class="control-label col-sm-2" for="name">Last Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="lname" placeholder="Enter the Last Name">
+      </div>
+      </div>
+<div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">FingerPrint Image:</label>
+      
+<iframe src="SparkMD5-master/test/file_reader.html" height="590px" width="100%" ></iframe>
+
+</div>
+          <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Generated Hash:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="hash" placeholder="MD5-Hash Value">
+      </div>
+    </div>
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default"onclick="add_value()">Submit</button>
+      </div>
+    </div>
+  </form>
+  
+</div>
+<h4>All Students:</h4>
+<table>
+  
+  <tr>
+    <td colspan="3">
+      <textarea id="inputTextToSave" style="width:512px;height:256px"></textarea>
+    </td>
+  </tr>
+  <tr>
+    <!--<td>Filename to Save As:</td>
+    <td><input id="inputFileNameToSaveAs"></input></td>-->
+    <td><center><button onclick="saveTextAsFile()">Save Text to File</button></center></td>
+  </tr>
+  <tr>
+    <td>Select a File to Load:</td>
+    <td><input type="file" id="fileToLoad"></td>
+    <td><button onclick="loadFileAsText()">Load Selected File</button><td>
+  </tr>
+</table>
+
+
+
+
+	<div class="row">
+        <div class="col-lg-12">
+        <br><br>
+          <p class="pull-right"><a href="#UP">Go UP</a><br>Made @ VIT, Vellore for Software Lab Project.</p>
+        <br><br>
+        </div>
+    </div>
+</div>
+	<!-- script references -->
+  <script type='text/javascript'>
+
+function saveTextAsFile()
+{
+  var textToWrite = document.getElementById("inputTextToSave").value;
+  var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+  var fileNameToSaveAs = "rollcall.csv";
+
+  var downloadLink = document.createElement("a");
+  downloadLink.download = fileNameToSaveAs;
+  downloadLink.innerHTML = "Download File";
+  if (window.webkitURL != null)
+  {
+    // Chrome allows the link to be clicked
+    // without actually adding it to the DOM.
+    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+  }
+  else
+  {
+    // Firefox requires the link to be added to the DOM
+    // before it can be clicked.
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+  }
+
+  downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+  document.body.removeChild(event.target);
+}
+
+function add_value() {
+  var x = document.getElementById("fname").value;
+  var y = document.getElementById("lname").value;
+  var z = document.getElementById("hash").value;
+  var string = x+","+y+","+z+",A";
+  return string;
+}
+function loadFileAsText()
+{
+  var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+  var fileReader = new FileReader();
+  fileReader.onload = function(fileLoadedEvent) 
+  { var x = add_value();
+    var textFromFileLoaded = fileLoadedEvent.target.result;
+    document.getElementById("inputTextToSave").value = textFromFileLoaded+"\n"+x;
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+</script>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
